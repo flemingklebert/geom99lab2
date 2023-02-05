@@ -22,7 +22,7 @@
     <script>
       require(["esri/config", "esri/Map", "esri/views/MapView"], function(esriConfig, Map, MapView) {
 
-       esriConfig.apiKey = AAPK53b4e31a9de8457f9f3fa99005da9d86aH204K46J5En1N8Oe_ugPNuC15dkyEz8pujYcIKD_Yo86pk4eSYMn5KmE04Z6uvq;
+       esriConfig.apiKey = "AAPK53b4e31a9de8457f9f3fa99005da9d86aH204K46J5En1N8Oe_ugPNuC15dkyEz8pujYcIKD_Yo86pk4eSYMn5KmE04Z6uvq";
 
        const map = new Map({
            basemap: "arcgis-topographic" // Basemap layer service
