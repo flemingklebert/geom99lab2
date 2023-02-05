@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>ArcGIS Maps SDK for JavaScript Tutorials: Display a map</title>
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+    
+    <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.25/"></script>
+    
+    <script>
+      require([
+        "esri/config", 
+        "esri/Map", 
+        "esri/views/MapView",
+        "esri/Graphic",
+        "esri/layers/GraphicsLayer"
+        ], function(esriConfig, Map, MapView, Graphic, GraphicsLayer) {
+
+    esriConfig.apiKey = "AAPK53b4e31a9de8457f9f3fa99005da9d86aH204K46J5En1N8Oe_ugPNuC15dkyEz8pujYcIKD_Yo86pk4eSYMn5KmE04Z6uvq";
+    const map = new Map({
+        basemap: "arcgis-imagery" // Basemap layer service
+    });
+        
+    const view = new MapView({
+        map: map,
+        center: [12.619, 42.939], // Longitude, latitude
+        zoom: 13, // Zoom level
+        container: "viewDiv" // Div element
+    });
+
+    const graphicsLayer = new GraphicsLayer();
+    map.add(graphicsLayer);  
+
+    const point = { //Create a point
+        type: "point",
+        longitude: 12.619,
+        latitude: 42.939
+    };
+
+    const simpleMarkerSymbol = {
+        type: "simple-marker",
+        color: [255, 0, 0],  // Orange
+        outline: {
+            color: [255, 255, 255], // White
+            width: 1
+        }
+    };
+
+    const pointGraphic = new Graphic({
+        geometry: point,
+        symbol: simpleMarkerSymbol
+    });
+    
+    graphicsLayer.add(pointGraphic);
+
+        // Create a line geometry
+    const polyline = {
+        type: "polyline",
+        paths: [
+            [12.619, 42.924], //Longitude, latitude
+            [12.601, 42.939], //Longitude, latitude
+            [12.608, 42.955],  //Longitude, latitude
+            [12.619, 42.944],  //Longitude, latitude
+            [12.625, 42.955],  //Longitude, latitude
+            [12.625, 42.955],  //Longitude, latitude
+            [12.636, 42.939],  //Longitude, latitude
+            [12.619, 42.924],  //Longitude, latitude
+        ]   
+    };
+    const simpleLineSymbol = {
+        type: "simple-line",
+        color: [255, 0, 0], // Orange
+        width: 2
+    };
+
+    const polylineGraphic = new Graphic({
+        geometry: polyline,
+        symbol: simpleLineSymbol
+    });
+    graphicsLayer.add(polylineGraphic);
+
+     // Create a polygon geometry
+    const polygon = {
+        type: "polygon",
+        rings: [
+            [12.619, 42.924], //Longitude, latitude
+            [12.601, 42.939], //Longitude, latitude
+            [12.608, 42.955],  //Longitude, latitude
+            [12.619, 42.944],  //Longitude, latitude
+            [12.625, 42.955],  //Longitude, latitude
+            [12.625, 42.955],  //Longitude, latitude
+            [12.636, 42.939],  //Longitude, latitude
+            [12.619, 42.924],  //Longitude, latitude
+        ]
+    };
+
+    const simpleFillSymbol = {
+        type: "simple-fill",
+        color: [255, 0, 255, 0.2],  // Orange, opacity 80%
+        outline: {
+            color: [255, 0, 0],
+            width: 1
+        }
+    };
+
+    const popupTemplate = {
+        title: "{Name}",
+        content: "{Description}"
+    }
+
+    const attributes = {
+        Name: "Umbria, Italy",
+        Description: "Umbria is the region where Saint Valentine lived. A Catholic priest who was said to have sent out a love letter before he was executed. The letter was signed 'from your Valentine'. Happy Valentine's Day!"
+    }
+
+    const polygonGraphic = new Graphic({
+        geometry: polygon,
+        symbol: simpleFillSymbol,
+
+        attributes: attributes,
+        popupTemplate: popupTemplate
+    });
+
+    graphicsLayer.add(polygonGraphic);
+
+    });
+    </script>
+  </head>
+  <body>
+    <div id="viewDiv"></div>
+  </body>
+</html>
